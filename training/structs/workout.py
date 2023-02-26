@@ -1,0 +1,30 @@
+from __future__ import annotations
+from training.structs.workout_part import WorkoutPart
+
+
+class Workout(object):
+
+    def __init__(self, id: int, name: str, note: str = ""):
+        self.id = id
+        self.name = name
+        self.note = note
+        self.parts: list[WorkoutPart] = []
+
+    @classmethod
+    def from_dict(cls, workout_dict: dict) -> Workout:
+        id = 0
+
+        new_workout = cls(
+            id,
+            workout_dict.get("name", None),
+            workout_dict.get("note", None),
+        )
+
+        parts = workout_dict.get("parts", [])
+        for workout_part_dict in parts:
+            new_workout.add_workout_part(WorkoutPart.from_dict(workout_part_dict))
+
+        return new_workout
+
+    def add_workout_part(self, workout_part: WorkoutPart):
+        self.parts.append(workout_part)
