@@ -1,8 +1,5 @@
 import yaml
-from training.structs.exercise import Exercise, ExerciseWeightsAndRep
-from training.structs.set import SetWeightsAndReps
 from training.structs.workout import Workout
-from training.structs.workout_part import WorkoutPart
 
 
 # Load the test.yaml file into a dictionary
