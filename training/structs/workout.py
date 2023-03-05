@@ -1,9 +1,9 @@
 from __future__ import annotations
-from training.structs.workout_part import WorkoutPart
+from typing import Any
+from ..structs.workout_part import WorkoutPart
 
 
-class Workout(object):
-
+class Workout:
     def __init__(self, id: int, name: str, note: str = ""):
         self.id = id
         self.name = name
@@ -28,3 +28,11 @@ class Workout(object):
 
     def add_workout_part(self, workout_part: WorkoutPart):
         self.parts.append(workout_part)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "note": self.note,
+            "parts": self.parts,
+        }

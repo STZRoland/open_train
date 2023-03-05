@@ -1,7 +1,6 @@
 from __future__ import annotations
-from training.structs.exercise import Exercise
-from training.structs.set import Set
-from typing import Type
+from typing import Any
+from ..structs.exercise import Exercise
 
 
 class WorkoutPart:
@@ -13,7 +12,6 @@ class WorkoutPart:
 
     @classmethod
     def from_dict(cls, workout_part_dict: dict) -> WorkoutPart:
-
         if "WorkoutPart" in workout_part_dict:
             workout_part_dict = workout_part_dict["WorkoutPart"]
 
@@ -28,7 +26,12 @@ class WorkoutPart:
 
         return new_workout
 
-
     def add_exercise(self, exercise: Exercise):
         self.exercises.append(exercise)
-    
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "name": self.name,
+            "note": self.note,
+            "exercises": self.exercises,
+        }
