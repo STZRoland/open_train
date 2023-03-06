@@ -11,7 +11,7 @@ class Workout:
         self.parts: list[WorkoutPart] = []
 
     @classmethod
-    def from_dict(cls, workout_dict: dict) -> Workout:
+    def from_dict(cls, workout_dict: dict, fill_values: bool = False) -> Workout:
         id = 0
 
         new_workout = cls(
@@ -22,7 +22,9 @@ class Workout:
 
         parts = workout_dict.get("parts", [])
         for workout_part_dict in parts:
-            new_workout.add_workout_part(WorkoutPart.from_dict(workout_part_dict))
+            new_workout.add_workout_part(
+                WorkoutPart.from_dict(workout_part_dict, fill_values)
+            )
 
         return new_workout
 

@@ -1,0 +1,34 @@
+---
+name: "Example Workout"
+note: "Lorem ipsum"
+
+parts:
+- WorkoutPart:
+    name: "Squat"
+    note: "Slow and controlles 3-1-3"
+    exercises:
+    - Exercise:
+        type: "weights_reps"
+        name: "Squat"
+        sets:
+          - Set:
+                repititions: 12
+                weight: 60
+          - Set:
+                repititions: 12
+                weight: 70
+
+- WorkoutPart:
+    name: "Romanian Deadlift"
+    note: "Stiff legs"
+    exercises:
+    - Exercise:
+        type: "weights_reps"
+        name: "Romanian Deadlift"
+        sets:
+          - Set:
+                repititions: 8
+                weight: 50
+          - Set:
+                repititions: 8
+                weight: 55

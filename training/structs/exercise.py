@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import Any, Type
 from training.structs.set import Set, SetWeightsAndReps
+from training.state.exercises import exercises_state
 
 
 class Exercise:
@@ -10,9 +11,10 @@ class Exercise:
     def __init__(self, id: int, name: str):
         self.id = id
         self.name = name
+        self.max = self._get_max_from_state()
 
     @staticmethod
-    def from_dict(exercise_dict: dict) -> Exercise:
+    def from_dict(exercise_dict: dict, fill_values: bool = False) -> Exercise:
         if "Exercise" in exercise_dict:
             exercise_dict = exercise_dict["Exercise"]
 
@@ -26,9 +28,7 @@ class Exercise:
 
         sets = exercise_dict.get("sets", [])
         for set in sets:
-            new_exercise.add_set(set)
-
-        print(new_exercise.id)
+            new_exercise.add_set(set, fill_values)
 
         return new_exercise
 
@@ -39,8 +39,11 @@ class Exercise:
             "sets": self.sets,
         }
 
-    def add_set(self, set_object: dict):
-        self.sets.append(self.set_type.from_dict(set_object))
+    def add_set(self, set_object: dict, fill_values: bool = False):
+        if fill_values:
+            pass
+        
+        self.sets.append(self.set_type.from_dict(set_object, fill_values))
 
     def check_validity(self) -> bool:
         for set in self.sets:
@@ -48,10 +51,19 @@ class Exercise:
                 return False
         return True
 
+    def _get_max_from_state(self):
+        raise NotImplementedError
+
 
 class ExerciseWeightsAndRep(Exercise):
     set_type = SetWeightsAndReps
     sets: list[set_type] = []
+
+    def _get_max_from_state(self):
+       return exercises_state.get_exercise_max(self.name) 
+
+   def _set_fill_values(set_object: dict):
+       pass
 
 
 exercise_types: dict[str, Type[Exercise]] = {"weights_reps": ExerciseWeightsAndRep}

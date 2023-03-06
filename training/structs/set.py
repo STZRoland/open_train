@@ -22,7 +22,7 @@ class SetWeightsAndReps(Set):
         absolute_intensity: float,
         relative_intensity: float,
         repititions: int,
-        weight: int,
+        weight: float,
     ) -> None:
         self._absolute_intensity = absolute_intensity
         self._relative_intensity = relative_intensity
@@ -30,7 +30,7 @@ class SetWeightsAndReps(Set):
         self._weight = weight
 
     @classmethod
-    def from_dict(cls, set_dict: dict) -> "SetWeightsAndReps":
+    def from_dict(cls, set_dict: dict, fill_values: bool = False) -> "SetWeightsAndReps":
         if "Set" in set_dict:
             set_dict = set_dict["Set"]
 

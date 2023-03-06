@@ -11,7 +11,9 @@ class WorkoutPart:
         self.note = note
 
     @classmethod
-    def from_dict(cls, workout_part_dict: dict) -> WorkoutPart:
+    def from_dict(
+        cls, workout_part_dict: dict, fill_values: bool = False
+    ) -> WorkoutPart:
         if "WorkoutPart" in workout_part_dict:
             workout_part_dict = workout_part_dict["WorkoutPart"]
 
@@ -22,7 +24,7 @@ class WorkoutPart:
 
         exerccises = workout_part_dict.get("exercises", [])
         for exercise_dict in exerccises:
-            new_workout.add_exercise(Exercise.from_dict(exercise_dict))
+            new_workout.add_exercise(Exercise.from_dict(exercise_dict, fill_values))
 
         return new_workout
 
