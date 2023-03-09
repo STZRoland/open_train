@@ -32,3 +32,34 @@ parts:
           - Set:
                 repititions: 8
                 weight: 55
+
+- WorkoutPart:
+    name: "Snatch + Overhead Squat"
+    note: ""
+    exercises:
+    - Exercise:
+        type: weights_reps
+        name: "Snatch"
+        sets:
+            - Set:
+                repititions: 2
+                absolute_intensity: 0.7
+            - Set:
+                repititions: 2
+                absolute_intensity: 0.7
+            - Set:
+                repititions: 2
+                absolute_intensity: 0.7
+    - Exercise:
+        type: weights_reps
+        name: "Overhead Squat"
+        sets:
+            - Set:
+                repititions: 2
+                weight: 50
+            - Set:
+                repititions: 2
+                weight: 50
+            - Set:
+                repititions: 2
+                weight: 50

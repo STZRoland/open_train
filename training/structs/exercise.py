@@ -5,6 +5,7 @@ from training.state.exercises import exercises_state
 
 
 class Exercise:
+    # Potential alternative name: Movmement
     sets: list[Set] = []
     set_type = Set
 
@@ -42,8 +43,8 @@ class Exercise:
     def add_set(self, set_object: dict, fill_values: bool = False):
         if fill_values:
             pass
-        
-        self.sets.append(self.set_type.from_dict(set_object, fill_values))
+
+        self.sets.append(self.set_type.from_dict(set_object))
 
     def check_validity(self) -> bool:
         for set in self.sets:
@@ -58,12 +59,13 @@ class Exercise:
 class ExerciseWeightsAndRep(Exercise):
     set_type = SetWeightsAndReps
     sets: list[set_type] = []
+    reference: str
 
     def _get_max_from_state(self):
-       return exercises_state.get_exercise_max(self.name) 
-
-   def _set_fill_values(set_object: dict):
-       pass
+        return exercises_state.get_exercise_max(self.name)
+    
+    def set_reference(self, exercise_name: str):
+        self.reference = exercise_name
 
 
 exercise_types: dict[str, Type[Exercise]] = {"weights_reps": ExerciseWeightsAndRep}
