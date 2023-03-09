@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from training.functions.weights_and_reps import (
+from open_train.functions.weights_and_reps import (
     max_reps_from_weight,
     max_weight_from_reps,
     one_rep_max,

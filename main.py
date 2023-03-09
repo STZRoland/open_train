@@ -1,5 +1,5 @@
 import yaml
-from training.structs.workout import Workout
+from open_train.structs.workout import Workout
 
 
 # Load the test.yaml file into a dictionary
@@ -8,15 +8,27 @@ with open("data/test.yaml", "r") as f:
 
 workout = Workout.from_dict(data)
 
-values = workout.parts[0].exercises[0].sets[0].to_dict()
-# print(values["relative_intensity"])
-# print(values["weight"])
-# print(values["repititions"])
+print([p.name for p in workout.parts])
+print([e.name for e in workout.parts[0].exercises])
+print([e.name for e in workout.parts[1].exercises])
 
-new_workout = workout.to_dict()
+values = workout.parts[0].exercises[0].sets[0].to_dict()
+print(values["relative_intensity"])
+print(values["weight"])
+print(values["repititions"])
+
+workout.fill_values()
+
+values = workout.parts[0].exercises[0].sets[0].to_dict()
+print(values["relative_intensity"])
+print(values["weight"])
+print(values["repititions"])
+
+# TODO: fix the to_dict() functions
+new_workout_dict = workout.to_dict()
 # print(new_workout.keys())
 # print(new_workout["parts"])
 
 
 with open("data/recreated.yaml", "w") as outfile:
-    yaml.dump(data, outfile)
+    yaml.dump(new_workout_dict, outfile)

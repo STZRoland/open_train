@@ -1,13 +1,13 @@
 import polars as pl
-from pathlib import Path
+from open_train.paths import exercise_csv_path
 
 
 def _read_csv_state() -> pl.DataFrame:
     if not exercise_csv_path.is_file():
-        exercises_df = pd.DataFrame({"exercise": [], "max": []}).to_csv(
+        exercises_df = pl.DataFrame({"exercise": [], "max": []}).write_csv(
             exercise_csv_path
         )
-    exercises_df = pd.DataFrame(pd.read_csv(exercise_csv_path))
+    exercises_df = pl.read_csv(exercise_csv_path)
 
     return exercises_df
 
@@ -22,11 +22,11 @@ class ExercisesState(object):
 
     def __init__(self) -> None:
         self.exercise_df = _read_csv_state()
+        test = 1
         assert "exercise" in self.exercise_df.columns
         assert "max" in self.exercise_df.columns
 
     def get_exercise_max(self, exercise_name: str):
-        # df_row = self.exercise_df[self.exercise_df["exercise"].str.match(exercise_name)]
         df_row = self.exercise_df.filter(pl.col("exercise") == exercise_name)
 
         if df_row is not None:
@@ -35,5 +35,4 @@ class ExercisesState(object):
             return None
 
 
-exercise_csv_path = Path("exercises.csv")
 exercises_state = ExercisesState()

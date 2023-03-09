@@ -8,10 +8,11 @@ class Workout:
         self.id = id
         self.name = name
         self.note = note
+
         self.parts: list[WorkoutPart] = []
 
     @classmethod
-    def from_dict(cls, workout_dict: dict, fill_values: bool = False) -> Workout:
+    def from_dict(cls, workout_dict: dict) -> Workout:
         id = 0
 
         new_workout = cls(
@@ -21,12 +22,18 @@ class Workout:
         )
 
         parts = workout_dict.get("parts", [])
+        parts = [p["WorkoutPart"] for p in parts if "WorkoutPart" in p.keys()]
+
         for workout_part_dict in parts:
             new_workout.add_workout_part(
-                WorkoutPart.from_dict(workout_part_dict, fill_values)
+                WorkoutPart.from_dict(workout_part_dict)
             )
 
         return new_workout
+    
+    def fill_values(self):
+        for p in self.parts:
+            p.fill_values()
 
     def add_workout_part(self, workout_part: WorkoutPart):
         self.parts.append(workout_part)

@@ -1,0 +1,86 @@
+id: 0
+name: Example Workout
+note: Lorem ipsum
+parts:
+- !!python/object:open_train.structs.workout_part.WorkoutPart
+  exercises:
+  - !!python/object:open_train.structs.exercise.ExerciseWeightsAndRep
+    id: 0
+    max: 120
+    name: Squat
+    sets:
+    - !!python/object:open_train.structs.set.SetWeightsAndReps
+      _absolute_intensity: 0.5
+      _relative_intensity: 0.7
+      _repititions: 12
+      _weight: 60
+    - !!python/object:open_train.structs.set.SetWeightsAndReps
+      _absolute_intensity: 0.5833333333333334
+      _relative_intensity: 0.8166666666666667
+      _repititions: 12
+      _weight: 70
+  name: Squat
+  note: Slow and controlled 3-1-3test
+- !!python/object:open_train.structs.workout_part.WorkoutPart
+  exercises:
+  - !!python/object:open_train.structs.exercise.ExerciseWeightsAndRep
+    id: 0
+    max: 100
+    name: Romanian Deadlift
+    sets:
+    - !!python/object:open_train.structs.set.SetWeightsAndReps
+      _absolute_intensity: 0.5
+      _relative_intensity: 0.6333333333333333
+      _repititions: 8
+      _weight: 50
+    - !!python/object:open_train.structs.set.SetWeightsAndReps
+      _absolute_intensity: 0.55
+      _relative_intensity: 0.6966666666666668
+      _repititions: 8
+      _weight: 55
+  name: Romanian Deadlift
+  note: Stiff legstest
+- !!python/object:open_train.structs.workout_part.WorkoutPart
+  exercises:
+  - !!python/object:open_train.structs.exercise.ExerciseWeightsAndRep
+    id: 0
+    max: 80
+    name: Snatch
+    sets:
+    - !!python/object:open_train.structs.set.SetWeightsAndReps
+      _absolute_intensity: 0.7
+      _relative_intensity: 0.7466666666666666
+      _repititions: 2
+      _weight: 56.0
+    - !!python/object:open_train.structs.set.SetWeightsAndReps
+      _absolute_intensity: 0.7
+      _relative_intensity: 0.7466666666666666
+      _repititions: 2
+      _weight: 56.0
+    - !!python/object:open_train.structs.set.SetWeightsAndReps
+      _absolute_intensity: 0.7
+      _relative_intensity: 0.7466666666666666
+      _repititions: 2
+      _weight: 56.0
+  - !!python/object:open_train.structs.exercise.ExerciseWeightsAndRep
+    id: 0
+    max: 80
+    name: Overhead Squat
+    sets:
+    - !!python/object:open_train.structs.set.SetWeightsAndReps
+      _absolute_intensity: 0.625
+      _relative_intensity: 0.6666666666666666
+      _repititions: 2
+      _weight: 50
+    - !!python/object:open_train.structs.set.SetWeightsAndReps
+      _absolute_intensity: 0.625
+      _relative_intensity: 0.6666666666666666
+      _repititions: 2
+      _weight: 50
+    - !!python/object:open_train.structs.set.SetWeightsAndReps
+      _absolute_intensity: 0.625
+      _relative_intensity: 0.6666666666666666
+      _repititions: 2
+      _weight: 50
+  name: Snatch + Overhead Squat
+  note: test

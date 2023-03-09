@@ -68,10 +68,10 @@ def abs_int_from_rel_int_repititions(
 def calc_missing_values(
     values_dict: dict[str, Any], one_rep_max_value: Optional[float] = None
 ):
-    abs_int = values_dict.get("absolute_intensity", None),
-    rel_int = values_dict.get("relative_intensity", None),
-    reps = values_dict.get("repititions", None),
-    weight = values_dict.get("weight", None),
+    abs_int = values_dict.get("absolute_intensity")
+    rel_int = values_dict.get("relative_intensity")
+    reps = values_dict.get("repititions")
+    weight = values_dict.get("weight")
 
     if one_rep_max_value is not None:
         if abs_int is None and weight is not None:

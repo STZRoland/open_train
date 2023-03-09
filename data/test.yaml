@@ -5,7 +5,7 @@ note: "Lorem ipsum"
 parts:
 - WorkoutPart:
     name: "Squat"
-    note: "Slow and controlles 3-1-3"
+    note: "Slow and controlled 3-1-3"
     exercises:
     - Exercise:
         type: "weights_reps"

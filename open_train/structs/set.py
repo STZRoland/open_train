@@ -9,6 +9,9 @@ class Set:
     def from_dict(cls, set_dict: dict):
         raise NotImplementedError
 
+    def update(self, set_dict: dict):
+        raise NotImplementedError
+
     def check_validity(self) -> bool:
         raise NotImplementedError
 
@@ -30,7 +33,7 @@ class SetWeightsAndReps(Set):
         self._weight = weight
 
     @classmethod
-    def from_dict(cls, set_dict: dict, fill_values: bool = False) -> "SetWeightsAndReps":
+    def from_dict(cls, set_dict: dict) -> "SetWeightsAndReps":
         if "Set" in set_dict:
             set_dict = set_dict["Set"]
 
@@ -40,6 +43,12 @@ class SetWeightsAndReps(Set):
             set_dict.get("repititions", None),
             set_dict.get("weight", None),
         )
+
+    def update(self, set_dict: dict):
+        self._absolute_intensity = set_dict.get("absolute_intensity", None)
+        self._relative_intensity = set_dict.get("relative_intensity", None)
+        self._repititions = set_dict.get("repititions", None)
+        self._weight = set_dict.get("weight", None)
 
     def to_dict(self) -> dict[str, Any]:
         return {
