@@ -67,18 +67,18 @@ parts:
         name: Overhead Squat
         sets:
         - Set:
-            absolute_intensity: 0.625
-            relative_intensity: 0.6666666666666666
+            absolute_intensity: null
+            relative_intensity: null
             repititions: 2
             weight: 50
         - Set:
-            absolute_intensity: 0.625
-            relative_intensity: 0.6666666666666666
+            absolute_intensity: null
+            relative_intensity: null
             repititions: 2
             weight: 50
         - Set:
-            absolute_intensity: 0.625
-            relative_intensity: 0.6666666666666666
+            absolute_intensity: null
+            relative_intensity: null
             repititions: 2
             weight: 50
         type: weights_reps

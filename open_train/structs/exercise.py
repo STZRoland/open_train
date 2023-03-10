@@ -13,7 +13,7 @@ class Exercise:
     def __init__(self, id: int, name: str, exercise_type: Optional[str] = None):
         self.id = id
         self.name = name
-        self.max = self._get_max_from_state()
+        # self.max = self._get_max_from_state()
         self.exercise_type = exercise_type
 
         self.sets: list[Set] = []
@@ -46,9 +46,10 @@ class Exercise:
         return new_exercise
 
     def fill_values(self):
+        max_value = self._get_max_from_state()
         for s in self.sets:
             test = s.to_dict()
-            values = calc_missing_values(s.to_dict()["Set"], self.max)
+            values = calc_missing_values(s.to_dict()["Set"], max_value)
             s.update(values)
 
     def to_dict(self) -> dict[str, Any]:
@@ -76,9 +77,10 @@ class ExerciseWeightsAndRep(Exercise):
     set_type = SetWeightsAndReps
     sets: list[set_type] = []
     reference: str
+    # TODO: write constructor with reference
 
     def _get_max_from_state(self):
-        return int(exercises_state.get_exercise_max(self.name).item())
+        return exercises_state.get_exercise_max(self.name)
 
     def set_reference(self, exercise_name: str):
         self.reference = exercise_name

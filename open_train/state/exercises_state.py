@@ -29,8 +29,8 @@ class ExercisesState(object):
     def get_exercise_max(self, exercise_name: str):
         df_row = self.exercise_df.filter(pl.col("exercise") == exercise_name)
 
-        if df_row is not None:
-            return df_row["max"]
+        if len(df_row) == 1:
+            return float(df_row["max"].item())
         else:
             return None
 

@@ -24,10 +24,7 @@ print(values["relative_intensity"])
 print(values["weight"])
 print(values["repititions"])
 
-# TODO: fix the to_dict() functions
 new_workout_dict = workout.to_dict()
-# print(new_workout.keys())
-# print(new_workout["parts"])
 
 
 with open("data/recreated.yaml", "w") as outfile:
