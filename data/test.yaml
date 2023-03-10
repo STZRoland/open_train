@@ -1,6 +1,9 @@
 ---
 name: "Example Workout"
 note: "Lorem ipsum"
+week: 1
+day: 1
+recorded: false
 
 parts:
 - WorkoutPart:

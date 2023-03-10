@@ -1,3 +1,4 @@
+day: 1
 id: 0
 name: Example Workout
 note: Lorem ipsum
@@ -84,3 +85,5 @@ parts:
         type: weights_reps
     name: Snatch + Overhead Squat
     note: ''
+recorded: false
+week: 1
