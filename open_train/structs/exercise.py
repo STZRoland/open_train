@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Any, Type
+from typing import Any, Optional, Type
 
 from open_train.functions.weights_and_reps import calc_missing_values
 from ..structs.set import Set, SetWeightsAndReps
@@ -10,17 +10,20 @@ class Exercise:
     # Potential alternative name: Movmement
     set_type = Set
 
-    def __init__(self, id: int, name: str):
+    def __init__(self, id: int, name: str, exercise_type: Optional[str] = None):
         self.id = id
         self.name = name
         self.max = self._get_max_from_state()
+        self.exercise_type = exercise_type
 
         self.sets: list[Set] = []
 
     @classmethod
     def from_dict(cls, exercise_dict: dict) -> Exercise:
-        # if "Exercise" in exercise_dict:
-        #     exercise_dict = exercise_dict["Exercise"]
+        if "Exercise" in exercise_dict:
+            exercise_dict = exercise_dict["Exercise"]
+        else:
+            raise ValueError("Key 'Exercise' is not in input.")
 
         id = 0
         exercise_type_str = exercise_dict.get("type", "")
@@ -28,27 +31,33 @@ class Exercise:
         new_exercise = exercise_types[exercise_type_str](
             id,
             exercise_dict.get("name", None),
+            exercise_type_str
         )
 
         sets = exercise_dict.get("sets", [])
-        sets = [s["Set"] for s in sets if "Set" in s.keys()]
+        # sets = [s["Set"] for s in sets if "Set" in s.keys()]
 
         for set in sets:
-            new_exercise.add_set(set)
+            try:
+                new_exercise.add_set(set)
+            except ValueError as e:
+                print(e)
 
         return new_exercise
 
     def fill_values(self):
         for s in self.sets:
-            values = calc_missing_values(s.to_dict(), self.max)
+            test = s.to_dict()
+            values = calc_missing_values(s.to_dict()["Set"], self.max)
             s.update(values)
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        return {"Exercise": {
             "id": self.id,
             "name": self.name,
-            "sets": self.sets,
-        }
+            "type": self.exercise_type,
+            "sets": [s.to_dict() for s in self.sets],
+        }}
 
     def add_set(self, set_object: dict):
         self.sets.append(self.set_type.from_dict(set_object))

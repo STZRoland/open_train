@@ -36,6 +36,8 @@ class SetWeightsAndReps(Set):
     def from_dict(cls, set_dict: dict) -> "SetWeightsAndReps":
         if "Set" in set_dict:
             set_dict = set_dict["Set"]
+        else:
+            raise ValueError("Key 'Set' is not in input.")
 
         return cls(
             set_dict.get("absolute_intensity", None),
@@ -51,12 +53,12 @@ class SetWeightsAndReps(Set):
         self._weight = set_dict.get("weight", None)
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        return {"Set": {
             "absolute_intensity": self._absolute_intensity,
             "relative_intensity": self._relative_intensity,
             "repititions": self._repititions,
             "weight": self._weight,
-        }
+        }}
 
     def check_validity(self) -> bool:
         if self._repititions is None:

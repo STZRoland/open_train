@@ -12,19 +12,24 @@ class WorkoutPart:
 
     @classmethod
     def from_dict(cls, workout_part_dict: dict) -> WorkoutPart:
-        # if "WorkoutPart" in workout_part_dict:
-        #     workout_part_dict = workout_part_dict["WorkoutPart"]
+        if "WorkoutPart" in workout_part_dict:
+            workout_part_dict = workout_part_dict["WorkoutPart"]
+        else:
+            raise ValueError("Key 'WorkoutPart' is not in input.")
         
         new_workout_part = cls(
             workout_part_dict.get("name", None),
-            workout_part_dict.get("note", None) + "test",
+            workout_part_dict.get("note", None),
         )
 
         exercises = workout_part_dict.get("exercises", [])
-        exercises = [e["Exercise"] for e in exercises if "Exercise" in e.keys()]
+        # exercises = [e["Exercise"] for e in exercises if "Exercise" in e.keys()]
 
         for exercise_dict in exercises:
-            new_workout_part.add_exercise(Exercise.from_dict(exercise_dict))
+            try:
+                new_workout_part.add_exercise(Exercise.from_dict(exercise_dict))
+            except ValueError as e:
+                print(e)
 
         print([e.name for e in new_workout_part.exercises])
         return new_workout_part
@@ -37,8 +42,8 @@ class WorkoutPart:
         self.exercises.append(exercise)
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        return {"WorkoutPart": {
             "name": self.name,
             "note": self.note,
-            "exercises": self.exercises,
-        }
+            "exercises": [e.to_dict() for e in self.exercises],
+        }}

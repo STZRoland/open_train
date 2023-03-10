@@ -22,12 +22,16 @@ class Workout:
         )
 
         parts = workout_dict.get("parts", [])
-        parts = [p["WorkoutPart"] for p in parts if "WorkoutPart" in p.keys()]
+        # parts = [p["WorkoutPart"] for p in parts if "WorkoutPart" in p.keys()]
+
 
         for workout_part_dict in parts:
-            new_workout.add_workout_part(
-                WorkoutPart.from_dict(workout_part_dict)
-            )
+            try:
+                new_workout.add_workout_part(
+                    WorkoutPart.from_dict(workout_part_dict)
+                )
+            except ValueError as e:
+                print(e)
 
         return new_workout
     
@@ -43,5 +47,5 @@ class Workout:
             "id": self.id,
             "name": self.name,
             "note": self.note,
-            "parts": self.parts,
+            "parts": [p.to_dict() for p in self.parts],
         }
