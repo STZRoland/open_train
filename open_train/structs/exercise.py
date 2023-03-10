@@ -10,13 +10,18 @@ class Exercise:
     # Potential alternative name: Movmement
     set_type = Set
 
-    def __init__(self, id: int, name: str, exercise_type: Optional[str] = None):
+    def __init__(self, id: int, name: str, exercise_type: Optional[str] = None, **kwargs):
         self.id = id
         self.name = name
         # self.max = self._get_max_from_state()
         self.exercise_type = exercise_type
 
         self.sets: list[Set] = []
+        self._post_init()
+
+    def _post_init(self):
+        # Can be changed by subclass to perform operations in the __init__() method
+        pass
 
     @classmethod
     def from_dict(cls, exercise_dict: dict) -> Exercise:
@@ -27,11 +32,15 @@ class Exercise:
 
         id = 0
         exercise_type_str = exercise_dict.get("type", "")
+        name = exercise_dict.get("name", None)
+        if name == None:
+            raise ValueError("You must provide a name for the exercise!")
+
+        exercise_dict.pop("name")
+        exercise_dict.pop("type")
 
         new_exercise = exercise_types[exercise_type_str](
-            id,
-            exercise_dict.get("name", None),
-            exercise_type_str
+            id, name, exercise_type_str, **exercise_dict
         )
 
         sets = exercise_dict.get("sets", [])
@@ -45,20 +54,16 @@ class Exercise:
 
         return new_exercise
 
-    def fill_values(self):
-        max_value = self._get_max_from_state()
-        for s in self.sets:
-            test = s.to_dict()
-            values = calc_missing_values(s.to_dict()["Set"], max_value)
-            s.update(values)
 
     def to_dict(self) -> dict[str, Any]:
-        return {"Exercise": {
-            "id": self.id,
-            "name": self.name,
-            "type": self.exercise_type,
-            "sets": [s.to_dict() for s in self.sets],
-        }}
+        return {
+            "Exercise": {
+                "id": self.id,
+                "name": self.name,
+                "type": self.exercise_type,
+                "sets": [s.to_dict() for s in self.sets],
+            }
+        }
 
     def add_set(self, set_object: dict):
         self.sets.append(self.set_type.from_dict(set_object))
@@ -68,6 +73,9 @@ class Exercise:
             if not set.check_validity():
                 return False
         return True
+    
+    def fill_values(self):
+        raise NotImplementedError
 
     def _get_max_from_state(self):
         raise NotImplementedError
@@ -75,15 +83,31 @@ class Exercise:
 
 class ExerciseWeightsAndRep(Exercise):
     set_type = SetWeightsAndReps
-    sets: list[set_type] = []
-    reference: str
-    # TODO: write constructor with reference
 
-    def _get_max_from_state(self):
-        return exercises_state.get_exercise_max(self.name)
+    def __init__(self, id: int, name: str, exercise_type: Optional[str] = None, **kwargs):
+        super().__init__(id, name, exercise_type)
+        test = kwargs.get("reference", None)
+        self.reference_exercise_name = kwargs.get("reference", None)
 
     def set_reference(self, exercise_name: str):
         self.reference = exercise_name
 
+    def fill_values(self):
+        if self.reference_exercise_name is None:
+            max_value = exercises_state.get_exercise_max(self.name)
+        else:
+            max_value = exercises_state.get_exercise_max(self.reference_exercise_name)
+    
+        print(f"Max: {max_value}")
+        print(self.reference_exercise_name)
 
-exercise_types: dict[str, Type[Exercise]] = {"weights_reps": ExerciseWeightsAndRep}
+        for s in self.sets:
+            test = s.to_dict()
+            values = calc_missing_values(s.to_dict()["Set"], max_value)
+            s.update(values)
+
+        
+exercise_types: dict[str, Type[Exercise]] = {
+    "weights_reps": ExerciseWeightsAndRep,
+    "": Exercise,
+}

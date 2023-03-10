@@ -67,20 +67,20 @@ parts:
         name: Overhead Squat
         sets:
         - Set:
-            absolute_intensity: null
-            relative_intensity: null
+            absolute_intensity: 0.75
+            relative_intensity: 0.8
             repititions: 2
-            weight: 50
+            weight: 60
         - Set:
-            absolute_intensity: null
-            relative_intensity: null
+            absolute_intensity: 0.875
+            relative_intensity: 0.9333333333333333
             repititions: 2
-            weight: 50
+            weight: 70
         - Set:
-            absolute_intensity: null
-            relative_intensity: null
+            absolute_intensity: 1.0
+            relative_intensity: 1.0666666666666667
             repititions: 2
-            weight: 50
+            weight: 80
         type: weights_reps
     name: Snatch + Overhead Squat
     note: ''

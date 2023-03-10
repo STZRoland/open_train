@@ -53,13 +53,14 @@ parts:
     - Exercise:
         type: weights_reps
         name: "Overhead Squat"
+        reference: "Snatch"
         sets:
             - Set:
                 repititions: 2
-                weight: 50
+                weight: 60
             - Set:
                 repititions: 2
-                weight: 50
+                weight: 70
             - Set:
                 repititions: 2
-                weight: 50
+                weight: 80
